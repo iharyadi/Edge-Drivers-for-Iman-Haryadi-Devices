@@ -117,19 +117,12 @@ local function write_attribute_function(device, cluster_id, attr_id, data_value)
 
 --- Binary Input Configuration
 local function binary_input_configure(self, device)
-  print("Enable Binary Input >>>>>>>>>>>>>>>>>>>>>>>> config")
-
-  local data_value = {value = true, ID = 0x10}
-  local cluster_id = {value = 0x000F}
-  local attr_id = 0x0051
-  write_attribute_function(device, cluster_id, attr_id, data_value)
 
 --- Cofigure reports binary inputs
   print("Configure Binary Reports >>>>>>>>>>>>>>>>>>>>>>>> config")
 
   device:send(device_management.build_bind_request(device, BINARY_INPUT_CLUSTER, self.environment_info.hub_zigbee_eui))
   device:send(BasicInput.attributes.PresentValue:configure_reporting(device, 0, 300))
-  device:send(device_management.build_bind_request(device, BINARY_INPUT_CLUSTER, self.environment_info.hub_zigbee_eui))
   device:send(BasicInput.attributes.StatusFlags:configure_reporting(device, 0, 300))
 
 end
